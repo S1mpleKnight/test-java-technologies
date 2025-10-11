@@ -1,0 +1,8 @@
+simple rest
+swager
+psql
+redis
+rabbitmq/kafka
+internalization
+docker containers
+migration
