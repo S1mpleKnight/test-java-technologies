@@ -1,6 +1,6 @@
-package ivan.zelezinski.lab.service;
+package ivan.zelezinski.lab.service.user;
 
-import ivan.zelezinski.lab.mapper.UserDto;
+import ivan.zelezinski.lab.mapper.user.UserDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

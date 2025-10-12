@@ -1,5 +1,7 @@
-package ivan.zelezinski.lab.mapper;
+package ivan.zelezinski.lab.mapper.user;
 
+import ivan.zelezinski.lab.mapper.UuidBaseDto;
+import ivan.zelezinski.lab.mapper.bookcase.BookcaseDto;
 import ivan.zelezinski.lab.utils.Constants;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
@@ -8,12 +10,12 @@ import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.time.LocalDateTime;
+import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Valid
-public class UserDto extends UuidBaseDto{
+public class UserDto extends UuidBaseDto {
 
     @NotBlank(message = "First name can not be empty")
     @Pattern(regexp = Constants.NAME_REGEXP, message = "Invalid first name")
@@ -28,4 +30,6 @@ public class UserDto extends UuidBaseDto{
 
     @NotBlank(message = "Invalid password")
     private String password;
+
+    private List<BookcaseDto> bookcases;
 }

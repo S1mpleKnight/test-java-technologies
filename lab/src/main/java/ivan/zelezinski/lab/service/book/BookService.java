@@ -1,6 +1,6 @@
-package ivan.zelezinski.lab.service;
+package ivan.zelezinski.lab.service.book;
 
-import ivan.zelezinski.lab.mapper.BookDto;
+import ivan.zelezinski.lab.mapper.book.BookDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

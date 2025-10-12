@@ -1,12 +1,11 @@
-package ivan.zelezinski.lab.mapper;
+package ivan.zelezinski.lab.mapper.user;
 
 import ivan.zelezinski.lab.domain.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
-import org.springframework.data.domain.Page;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface UserDtoMapper {
 
     UserDto toDto(User user);
@@ -21,5 +20,4 @@ public interface UserDtoMapper {
     @Mapping(target = "updatedDate", ignore = true)
     User updateEntity(@MappingTarget User user, UserDto dto);
 
-    Page<UserDto> findAll(Page<User> users);
 }
