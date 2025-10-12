@@ -1,9 +1,6 @@
 package ivan.zelezinski.lab.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -21,9 +18,9 @@ public class Bookcase extends UuidBaseEntity {
     private String shopName;
 
     @ManyToOne
-    @JoinColumn(name = "uuid")
-    private User owner;
+    @JoinColumn(name = "user_uuid")
+    private User user;
 
-    @OneToMany(mappedBy = "uuid")
+    @OneToMany(mappedBy = "uuid", fetch = FetchType.LAZY)
     private List<Book> books;
 }

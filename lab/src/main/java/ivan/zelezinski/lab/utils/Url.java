@@ -11,4 +11,8 @@ public interface Url {
     interface User {
         String BASE = "users/";
     }
+
+    interface Bookcase {
+        String BASE = "bookcase/";
+    }
 }

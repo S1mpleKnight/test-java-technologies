@@ -1,7 +1,7 @@
 package ivan.zelezinski.lab.controller;
 
-import ivan.zelezinski.lab.mapper.UserDto;
-import ivan.zelezinski.lab.service.UserService;
+import ivan.zelezinski.lab.mapper.user.UserDto;
+import ivan.zelezinski.lab.service.user.UserService;
 import ivan.zelezinski.lab.utils.Url;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

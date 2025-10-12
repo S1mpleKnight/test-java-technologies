@@ -1,8 +1,6 @@
 package ivan.zelezinski.lab.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -11,6 +9,7 @@ import java.util.List;
 
 @Entity
 @Data
+@Table(name = "base_user")
 @ToString
 @EqualsAndHashCode(callSuper = true)
 public class User extends UuidBaseEntity {
@@ -21,8 +20,9 @@ public class User extends UuidBaseEntity {
 
     private String email;
 
+    //todo: encrypt password
     private String password;
 
-    @OneToMany(mappedBy = "uuid")
+    @OneToMany(mappedBy = "uuid", fetch = FetchType.LAZY)
     private List<Bookcase> bookcases;
 }

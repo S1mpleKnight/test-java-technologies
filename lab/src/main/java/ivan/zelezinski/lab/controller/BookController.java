@@ -1,7 +1,7 @@
 package ivan.zelezinski.lab.controller;
 
-import ivan.zelezinski.lab.mapper.BookDto;
-import ivan.zelezinski.lab.service.BookService;
+import ivan.zelezinski.lab.mapper.book.BookDto;
+import ivan.zelezinski.lab.service.book.BookService;
 import ivan.zelezinski.lab.utils.Url;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
