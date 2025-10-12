@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: "lab"
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        transaction.jta.platform: org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+#  main:
+#    allow-bean-definition-overriding: true
+  datasource:
+    url: jdbc:postgresql://localhost:4321/lab
+    username: postgres
+    password: password
+    driver-class-name: org.postgresql.Driver
