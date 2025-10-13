@@ -1,0 +1,89 @@
+databaseChangeLog:
+
+  - changeset:
+    id: 1
+    author: "Ivan Zelezinski"
+    changes:
+      - createTable:
+        tableName: base_user
+        columns:
+          - column:
+            name: uuid
+            type: uuid
+            constrains:
+              primaryKey: true
+              nullable: false
+          - column:
+            name: email
+            type: varchar(255)
+          - column:
+            name: created_date
+            type: timestamp(6) without time zone
+          - column:
+            name: updated_date
+            type: timestamp(6) without time zone
+          - column:
+            name: first_name
+            type: varchar(255)
+          - column:
+            name: second_name
+            type: varchar(255)
+          - column:
+            name: password
+            type: varchar(255)
+
+      - createTable:
+        tableName: bookcase
+        columns:
+          - column:
+            name: uuid
+            type: uuid
+            constrains:
+              primaryKey: true
+              nullable: false
+          - column:
+            name: created_date
+            type: timestamp(6) without time zone
+          - column:
+            name: updated_date
+            type: timestamp(6) without time zone
+          - column:
+            name: name
+            type: varchar(255)
+          - column:
+            name: shop_name
+            type: varchar(255)
+      - addForeignKeyConstraint:
+        baseTableName: base_user
+        baseColumnNames: uuid
+        constraintName: user_bookcase_fk
+        referencedTableName: bookcase
+        referencedColumnNames: user_id
+
+      - createTable:
+        tableName: book
+        columns:
+          - column:
+            name: uuid
+            type: uuid
+            constrains:
+              primaryKey: true
+              nullable: false
+          - column:
+            name: created_date
+            type: timestamp(6) without time zone
+          - column:
+            name: updated_date
+            type: timestamp(6) without time zone
+          - column:
+            name: release_date
+            type: timestamp(6) without time zone
+          - column:
+            name: name
+            type: varchar(255)
+      - addForeignKeyConstraint:
+        baseTableName: bookcase
+        baseColumnNames: uuid
+        constraintName: bookcase_book_fk
+        referencedTableName: book
+        referencedColumnNames: book_id

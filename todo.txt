@@ -1,8 +1,6 @@
-simple rest
-swager
-psql
+migration + data
+criteria api
 redis
 rabbitmq/kafka
+security
 internalization
-docker containers
-migration
