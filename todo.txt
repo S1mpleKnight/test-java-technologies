@@ -1,8 +1,7 @@
-exception handler
 redis
 rabbitmq/kafka
 security
+bean post processor
 internalization
-
 
 swagger - http://localhost:8080/swagger-ui/index.html#/

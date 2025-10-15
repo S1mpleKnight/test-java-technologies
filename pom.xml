@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.5.6</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/>
     </parent>
+
     <groupId>ivan.zelezinski</groupId>
     <artifactId>lab</artifactId>
     <version>0.0.1-SNAPSHOT</version>
@@ -17,16 +20,17 @@
     <properties>
         <java.version>21</java.version>
         <mapstruct.version>1.6.3</mapstruct.version>
-        <commons-collections4.version>4.5.0</commons-collections4.version>
         <lombok-mapstruct.version>0.2.0</lombok-mapstruct.version>
+        <commons-collections4.version>4.5.0</commons-collections4.version>
         <psql.driver.version>42.7.8</psql.driver.version>
-        <springdoc-opeapi.version>2.1.0</springdoc-opeapi.version>
+        <springdoc-openapi.version>2.8.0</springdoc-openapi.version>
         <liquibase.version>4.31.1</liquibase.version>
-        <hiernate.validator.version>9.0.1.Final</hiernate.validator.version>
-        <hibernate.jpametamodel.version>7.2.0.CR1</hibernate.jpametamodel.version>
+        <hibernate.validator.version>9.0.1.Final</hibernate.validator.version>
+        <hibernate.processor.version>7.2.0.CR1</hibernate.processor.version>
     </properties>
 
     <dependencies>
+        <!-- Core Spring Boot starters -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -37,9 +41,18 @@
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
 
+        <!-- Database -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${psql.driver.version}</version>
+        </dependency>
+
+        <!-- MapStruct + Lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+            <optional>true</optional>
         </dependency>
 
         <dependency>
@@ -60,15 +73,18 @@
             <version>${mapstruct.version}</version>
         </dependency>
 
+        <!-- Utilities -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-collections4</artifactId>
             <version>${commons-collections4.version}</version>
         </dependency>
 
+        <!-- Validation -->
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>${hibernate.validator.version}</version>
         </dependency>
 
         <dependency>
@@ -76,56 +92,49 @@
             <artifactId>jakarta.validation-api</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>${psql.driver.version}</version>
-        </dependency>
-
+        <!-- OpenAPI / Swagger UI -->
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-            <version>${springdoc-opeapi.version}</version>
+            <version>${springdoc-openapi.version}</version>
         </dependency>
 
+        <!-- Liquibase -->
         <dependency>
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
             <version>${liquibase.version}</version>
         </dependency>
 
+        <!-- Optional Hibernate annotation processor -->
         <dependency>
-            <groupId>org.hibernate.validator</groupId>
-            <artifactId>hibernate-validator</artifactId>
-            <version>${hiernate.validator.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-jpamodelgen</artifactId>
-            <version>${hibernate.jpametamodel.version}</version>
-            <type>pom</type>
+            <groupId>org.hibernate.orm</groupId>
+            <artifactId>hibernate-processor</artifactId>
+            <version>${hibernate.processor.version}</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
 
     <build>
         <plugins>
+            <!-- Spring Boot -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+
+            <!-- Java Compiler / Annotation Processors -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>${java.version}</source> <!-- depending on your project -->
-                    <target>${java.version}</target> <!-- depending on your project -->
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
                     <annotationProcessorPaths>
                         <path>
                             <groupId>org.hibernate.orm</groupId>
-                            <artifactId>hibernate-jpamodelgen</artifactId>
-                            <version>${hibernate.jpametamodel.version}</version>
+                            <artifactId>hibernate-processor</artifactId>
+                            <version>${hibernate.processor.version}</version>
                         </path>
                         <path>
                             <groupId>org.projectlombok</groupId>
@@ -146,5 +155,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
