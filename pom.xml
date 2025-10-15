@@ -22,6 +22,8 @@
         <psql.driver.version>42.7.8</psql.driver.version>
         <springdoc-opeapi.version>2.1.0</springdoc-opeapi.version>
         <liquibase.version>4.31.1</liquibase.version>
+        <hiernate.validator.version>9.0.1.Final</hiernate.validator.version>
+        <hibernate.jpametamodel.version>7.2.0.CR1</hibernate.jpametamodel.version>
     </properties>
 
     <dependencies>
@@ -91,6 +93,20 @@
             <artifactId>liquibase-core</artifactId>
             <version>${liquibase.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>${hiernate.validator.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-jpamodelgen</artifactId>
+            <version>${hibernate.jpametamodel.version}</version>
+            <type>pom</type>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -106,6 +122,11 @@
                     <source>${java.version}</source> <!-- depending on your project -->
                     <target>${java.version}</target> <!-- depending on your project -->
                     <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.hibernate.orm</groupId>
+                            <artifactId>hibernate-jpamodelgen</artifactId>
+                            <version>${hibernate.jpametamodel.version}</version>
+                        </path>
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>

@@ -1,6 +1,7 @@
 package ivan.zelezinski.lab.controller;
 
 import ivan.zelezinski.lab.mapper.book.BookDto;
+import ivan.zelezinski.lab.mapper.filter.BookFilterDto;
 import ivan.zelezinski.lab.service.book.BookService;
 import ivan.zelezinski.lab.utils.Url;
 import jakarta.validation.Valid;
@@ -25,8 +26,10 @@ public class BookController {
     }
 
     @GetMapping
-    public Page<BookDto> getBooks(@RequestParam(required = false)Pageable pageable) {
-        return service.findAllBooks(pageable);
+    public Page<BookDto> getBooks(
+            @RequestParam(required = false)Pageable pageable, BookFilterDto filter
+    ) {
+        return service.findAllBooks(pageable, filter);
     }
 
     @PostMapping

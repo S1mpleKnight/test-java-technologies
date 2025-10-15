@@ -9,6 +9,7 @@ import org.mapstruct.MappingTarget;
 @Mapper(componentModel = "spring", uses = {BookcaseDtoMapper.class})
 public interface BookDtoMapper {
 
+    @Mapping(target = "bookcaseId", source = "bookcase.uuid")
     BookDto toDto(Book book);
 
     @Mapping(target = "uuid", ignore = true)

@@ -1,11 +1,13 @@
 package ivan.zelezinski.lab.mapper.user;
 
 import ivan.zelezinski.lab.domain.User;
+import ivan.zelezinski.lab.mapper.book.BookDtoMapper;
+import ivan.zelezinski.lab.mapper.bookcase.BookcaseDtoMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {BookDtoMapper.class, BookcaseDtoMapper.class})
 public interface UserDtoMapper {
 
     UserDto toDto(User user);

@@ -6,7 +6,8 @@ import ivan.zelezinski.lab.exceptions.BadRequestException;
 import ivan.zelezinski.lab.exceptions.NotFoundException;
 import ivan.zelezinski.lab.mapper.book.BookDto;
 import ivan.zelezinski.lab.mapper.book.BookDtoMapper;
-import ivan.zelezinski.lab.repository.BookRepository;
+import ivan.zelezinski.lab.mapper.filter.BookFilterDto;
+import ivan.zelezinski.lab.repository.book.BookRepository;
 import ivan.zelezinski.lab.repository.BookcaseRepository;
 import ivan.zelezinski.lab.utils.Utils;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.UUID;
 
 @Service
@@ -26,9 +28,12 @@ public class BookServiceImpl implements BookService {
     private final BookcaseRepository bookcaseRepository;
 
     @Override
-    public Page<BookDto> findAllBooks(Pageable pageable) {
+    public Page<BookDto> findAllBooks(Pageable pageable, BookFilterDto filter) {
         if (Utils.isNull(pageable)) {
             pageable = Pageable.unpaged();
+        }
+        if (Objects.nonNull(filter)) {
+            return bookRepository.findAll(pageable, filter).map(bookDtoMapper::toDto);
         }
         return bookRepository.findAll(pageable).map(bookDtoMapper::toDto);
     }
@@ -40,8 +45,8 @@ public class BookServiceImpl implements BookService {
             throw new BadRequestException("Book with ${dto.name} exists");
         }
         Book book = bookDtoMapper.dtoToEntity(dto);
-        if (!Utils.isNull(dto.getBookcase())) {
-            Bookcase bookcase = bookcaseRepository.findById(dto.getBookcase().getUuid())
+        if (!Utils.isNull(dto.getBookcaseId())) {
+            Bookcase bookcase = bookcaseRepository.findById(dto.getBookcaseId())
                     .orElseThrow(() -> new NotFoundException("Bookcase with id: ${uuid} not found"));
             book.setBookcase(bookcase);
         }
@@ -59,8 +64,8 @@ public class BookServiceImpl implements BookService {
                 throw new BadRequestException("Book with ${dto.name} exists");
             }
         }
-        if (!Utils.isNull(dto.getBookcase())) {
-            Bookcase bookcase = bookcaseRepository.findById(dto.getBookcase().getUuid())
+        if (!Utils.isNull(dto.getBookcaseId())) {
+            Bookcase bookcase = bookcaseRepository.findById(dto.getBookcaseId())
                     .orElseThrow(() -> new NotFoundException("Bookcase with id: ${uuid} not found"));
             book.setBookcase(bookcase);
         }

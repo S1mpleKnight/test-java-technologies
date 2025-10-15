@@ -47,11 +47,11 @@ public class BookcaseServiceImpl implements BookcaseService {
         Bookcase bookcase = bookcaseDtoMapper.toEntity(dto);
         bookcase.setCreatedDate(LocalDateTime.now());
         bookcase.setUpdatedDate(LocalDateTime.now());
-        if (!Utils.isNull(dto.getUser())) {
-            if (!userRepository.existsById(dto.getUser().getUuid())){
+        if (!Utils.isNull(dto.getUserId())) {
+            if (!userRepository.existsById(dto.getUserId())){
                 throw new BadRequestException("User with ${uuid} does not exist");
             } else {
-                User user = userRepository.findById(dto.getUser().getUuid()).get();
+                User user = userRepository.findById(dto.getUserId()).get();
                 bookcase.setUser(user);
             }
         }
@@ -67,11 +67,11 @@ public class BookcaseServiceImpl implements BookcaseService {
         }
         bookcase = bookcaseDtoMapper.updateEntity(bookcase, dto);
         bookcase.setUpdatedDate(LocalDateTime.now());
-        if (!Utils.isNull(dto.getUser())) {
-            if (!userRepository.existsById(dto.getUser().getUuid())){
+        if (!Utils.isNull(dto.getUserId())) {
+            if (!userRepository.existsById(dto.getUserId())){
                 throw new BadRequestException("User with ${uuid} does not exist");
             } else {
-                User user = userRepository.findById(dto.getUser().getUuid()).get();
+                User user = userRepository.findById(dto.getUserId()).get();
                 bookcase.setUser(user);
             }
         }

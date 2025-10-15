@@ -22,6 +22,6 @@ public class Bookcase extends UuidBaseEntity {
     private User user;
 
     @ToString.Exclude
-    @OneToMany(mappedBy = "uuid", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "bookcase", fetch = FetchType.LAZY)
     private List<Book> books;
 }

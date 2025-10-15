@@ -1,5 +1,4 @@
-fill database with data
-criteria api
+exception handler
 redis
 rabbitmq/kafka
 security
