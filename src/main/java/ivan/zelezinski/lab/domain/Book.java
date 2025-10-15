@@ -20,6 +20,6 @@ public class Book extends UuidBaseEntity {
     private LocalDate releaseDate;
 
     @ManyToOne
-    @JoinColumn(name = "bookcase_uuid")
+    @JoinColumn(name = "bookcase_id")
     private Bookcase bookcase;
 }

@@ -23,7 +23,7 @@ public class UserController {
     }
 
     @GetMapping
-    public Page<UserDto> findAll(@RequestParam(required = true) Pageable pageable) {
+    public Page<UserDto> findAll(@RequestParam(required = false) Pageable pageable) {
         return userService.findAll(pageable);
     }
 

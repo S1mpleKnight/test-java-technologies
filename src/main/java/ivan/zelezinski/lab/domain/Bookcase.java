@@ -18,9 +18,10 @@ public class Bookcase extends UuidBaseEntity {
     private String shopName;
 
     @ManyToOne
-    @JoinColumn(name = "user_uuid")
+    @JoinColumn(name = "user_id")
     private User user;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "uuid", fetch = FetchType.LAZY)
     private List<Book> books;
 }

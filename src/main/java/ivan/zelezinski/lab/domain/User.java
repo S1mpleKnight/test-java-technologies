@@ -23,6 +23,7 @@ public class User extends UuidBaseEntity {
     //todo: encrypt password
     private String password;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "uuid", fetch = FetchType.LAZY)
     private List<Bookcase> bookcases;
 }

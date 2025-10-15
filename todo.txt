@@ -1,6 +1,9 @@
-migration + data
+fill database with data
 criteria api
 redis
 rabbitmq/kafka
 security
 internalization
+
+
+swagger - http://localhost:8080/swagger-ui/index.html#/

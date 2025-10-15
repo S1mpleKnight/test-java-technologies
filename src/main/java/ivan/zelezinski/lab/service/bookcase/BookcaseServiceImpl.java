@@ -15,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Service
@@ -44,6 +45,8 @@ public class BookcaseServiceImpl implements BookcaseService {
             throw new BadRequestException("Bookcase with ${name} already exists");
         }
         Bookcase bookcase = bookcaseDtoMapper.toEntity(dto);
+        bookcase.setCreatedDate(LocalDateTime.now());
+        bookcase.setUpdatedDate(LocalDateTime.now());
         if (!Utils.isNull(dto.getUser())) {
             if (!userRepository.existsById(dto.getUser().getUuid())){
                 throw new BadRequestException("User with ${uuid} does not exist");
@@ -63,6 +66,7 @@ public class BookcaseServiceImpl implements BookcaseService {
             throw new BadRequestException("Bookcase with ${name} already exists");
         }
         bookcase = bookcaseDtoMapper.updateEntity(bookcase, dto);
+        bookcase.setUpdatedDate(LocalDateTime.now());
         if (!Utils.isNull(dto.getUser())) {
             if (!userRepository.existsById(dto.getUser().getUuid())){
                 throw new BadRequestException("User with ${uuid} does not exist");

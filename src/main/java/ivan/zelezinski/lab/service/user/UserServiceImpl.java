@@ -55,6 +55,7 @@ public class UserServiceImpl implements UserService{
             throw new BadRequestException("User with ${dto.email} already exists");
         }
         user = userDtoMapper.updateEntity(user, dto);
+        user.setUpdatedDate(LocalDateTime.now());
         return userDtoMapper.toDto(userRepository.save(user));
     }
 
