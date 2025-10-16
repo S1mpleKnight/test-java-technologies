@@ -2,7 +2,7 @@ package ivan.zelezinski.lab.utils;
 
 public interface Url {
 
-    String UUID = "{UUID}";
+    String UUID = "{uuid}";
 
     interface Book {
         String BASE = "books/";

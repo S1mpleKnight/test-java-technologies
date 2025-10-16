@@ -1,6 +1,6 @@
-redis
 rabbitmq/kafka
 security
+logs
 bean post processor
 internalization
 

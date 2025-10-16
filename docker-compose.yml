@@ -9,3 +9,12 @@ services:
     ports:
       - "4321:5432"
     restart: unless-stopped
+  redis:
+    image: redis
+    container_name: lab-redis-container
+    environment:
+      REDIS_PASSWORD: password
+    command: ["redis-server", "--requirepass", "redis-password"]
+    ports:
+      - "6379:6379"
+    restart: unless-stopped

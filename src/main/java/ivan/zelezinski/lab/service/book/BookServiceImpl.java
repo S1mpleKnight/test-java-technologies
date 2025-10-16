@@ -11,6 +11,9 @@ import ivan.zelezinski.lab.repository.book.BookRepository;
 import ivan.zelezinski.lab.repository.BookcaseRepository;
 import ivan.zelezinski.lab.utils.Utils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -57,6 +60,7 @@ public class BookServiceImpl implements BookService {
 
     @Transactional
     @Override
+    @CachePut(value = "books", key = "#uuid")
     public BookDto update(UUID uuid, BookDto dto) {
         Book book = findByUuidAndGet(uuid);
         if (!book.getName().equals(dto.getName())) {
@@ -76,12 +80,14 @@ public class BookServiceImpl implements BookService {
 
     @Transactional
     @Override
+    @CacheEvict(value = "books", key = "#uuid")
     public void delete(UUID uuid) {
         Book book = findByUuidAndGet(uuid);
         bookRepository.delete(book);
     }
 
     @Override
+    @Cacheable(value = "books", key = "#uuid")
     public BookDto findByUuid(UUID uuid) {
         return bookDtoMapper.toDto(findByUuidAndGet(uuid));
     }
