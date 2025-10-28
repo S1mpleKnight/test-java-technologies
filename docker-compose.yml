@@ -7,8 +7,9 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_DB: lab
     ports:
-      - "4321:5432"
+      - 4321:5432
     restart: unless-stopped
+
   redis:
     image: redis
     container_name: lab-redis-container
@@ -16,5 +17,17 @@ services:
       REDIS_PASSWORD: password
     command: ["redis-server", "--requirepass", "redis-password"]
     ports:
-      - "6379:6379"
+      - 6379:6379
+    restart: unless-stopped
+
+  rabbitmq:
+    image: rabbitmq:4-management
+    container_name: lab-rabbitmq-container
+    hostname: rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: rabbitmq
+      RABBITMQ_DEFAULT_PASS: password
+    ports:
+      - 5672:5672
+      - 15672:15672
     restart: unless-stopped

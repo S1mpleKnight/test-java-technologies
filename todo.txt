@@ -1,8 +1,8 @@
-rabbitmq/kafka
 logs
 sql queries
-security
+security(RBAC + keyloak)
 bean post processor
 internalization
+tests
 
 swagger - http://localhost:8080/swagger-ui/index.html#/

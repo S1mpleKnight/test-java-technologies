@@ -1,3 +1,5 @@
+server:
+  port: 8080
 spring:
   application:
     name: "lab"
@@ -22,3 +24,13 @@ spring:
       timeout: 6000ms
   cache:
     type: redis
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: rabbitmq
+    password: password
+queue:
+  book:
+    name:
+      first: firstBookQueue
+      second: secondBookQueue

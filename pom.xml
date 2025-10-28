@@ -7,12 +7,12 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.5.6</version>
+        <version>3.4.1</version>
         <relativePath/>
     </parent>
 
     <groupId>ivan.zelezinski</groupId>
-    <artifactId>lab</artifactId>
+    <artifactId>test-java-technologies</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>lab</name>
     <description>Test features</description>
@@ -27,7 +27,6 @@
         <liquibase.version>4.31.1</liquibase.version>
         <hibernate.validator.version>9.0.1.Final</hibernate.validator.version>
         <hibernate.processor.version>7.2.0.CR1</hibernate.processor.version>
-        <redis.starter.version>3.5.6</redis.starter.version>
     </properties>
 
     <dependencies>
@@ -124,7 +123,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
-            <version>${redis.starter.version}</version>
+        </dependency>
+
+        <!-- RabbitMQ -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
         </dependency>
 
     </dependencies>

@@ -2,13 +2,12 @@ package ivan.zelezinski.lab.service.book;
 
 import ivan.zelezinski.lab.domain.Book;
 import ivan.zelezinski.lab.domain.Bookcase;
-import ivan.zelezinski.lab.exceptions.BadRequestException;
 import ivan.zelezinski.lab.exceptions.NotFoundException;
 import ivan.zelezinski.lab.mapper.book.BookDto;
 import ivan.zelezinski.lab.mapper.book.BookDtoMapper;
 import ivan.zelezinski.lab.mapper.filter.BookFilterDto;
-import ivan.zelezinski.lab.repository.book.BookRepository;
 import ivan.zelezinski.lab.repository.BookcaseRepository;
+import ivan.zelezinski.lab.repository.book.BookRepository;
 import ivan.zelezinski.lab.utils.Utils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
@@ -44,9 +43,6 @@ public class BookServiceImpl implements BookService {
     @Transactional
     @Override
     public BookDto create(BookDto dto) {
-        if (bookRepository.existsByName(dto.getName())) {
-            throw new BadRequestException("Book with ${dto.name} exists");
-        }
         Book book = bookDtoMapper.dtoToEntity(dto);
         if (!Utils.isNull(dto.getBookcaseId())) {
             Bookcase bookcase = bookcaseRepository.findById(dto.getBookcaseId())
@@ -63,11 +59,6 @@ public class BookServiceImpl implements BookService {
     @CachePut(value = "books", key = "#uuid")
     public BookDto update(UUID uuid, BookDto dto) {
         Book book = findByUuidAndGet(uuid);
-        if (!book.getName().equals(dto.getName())) {
-            if (bookRepository.existsByName(dto.getName())) {
-                throw new BadRequestException("Book with ${dto.name} exists");
-            }
-        }
         if (!Utils.isNull(dto.getBookcaseId())) {
             Bookcase bookcase = bookcaseRepository.findById(dto.getBookcaseId())
                     .orElseThrow(() -> new NotFoundException("Bookcase with id: ${uuid} not found"));
