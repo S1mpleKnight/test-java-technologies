@@ -1,6 +1,7 @@
 rabbitmq/kafka
-security
 logs
+sql queries
+security
 bean post processor
 internalization
 
