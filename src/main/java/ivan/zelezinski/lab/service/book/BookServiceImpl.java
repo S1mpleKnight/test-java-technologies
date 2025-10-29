@@ -10,6 +10,7 @@ import ivan.zelezinski.lab.repository.BookcaseRepository;
 import ivan.zelezinski.lab.repository.book.BookRepository;
 import ivan.zelezinski.lab.utils.Utils;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -24,6 +25,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
     private final BookDtoMapper bookDtoMapper;
@@ -49,6 +51,7 @@ public class BookServiceImpl implements BookService {
                     .orElseThrow(() -> new NotFoundException("Bookcase with id: ${uuid} not found"));
             book.setBookcase(bookcase);
         }
+        log.info("Book with name {} created", book.getName());
         book.setCreatedDate(LocalDateTime.now());
         book.setUpdatedDate(LocalDateTime.now());
         return bookDtoMapper.toDto(bookRepository.save(book));
@@ -64,6 +67,7 @@ public class BookServiceImpl implements BookService {
                     .orElseThrow(() -> new NotFoundException("Bookcase with id: ${uuid} not found"));
             book.setBookcase(bookcase);
         }
+        log.info("Book with name {} updated", book.getName());
         book.setUpdatedDate(LocalDateTime.now());
         book = bookDtoMapper.updateEntity(book, dto);
         return bookDtoMapper.toDto(bookRepository.save(book));
@@ -74,6 +78,7 @@ public class BookServiceImpl implements BookService {
     @CacheEvict(value = "books", key = "#uuid")
     public void delete(UUID uuid) {
         Book book = findByUuidAndGet(uuid);
+        log.info("Book with name {} deleted", book.getName());
         bookRepository.delete(book);
     }
 
@@ -81,6 +86,11 @@ public class BookServiceImpl implements BookService {
     @Cacheable(value = "books", key = "#uuid")
     public BookDto findByUuid(UUID uuid) {
         return bookDtoMapper.toDto(findByUuidAndGet(uuid));
+    }
+
+    @Override
+    public Long getAmount() {
+        return bookRepository.count();
     }
 
     private Book findByUuidAndGet(UUID uuid) {

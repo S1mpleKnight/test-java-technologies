@@ -36,6 +36,12 @@ public class BookController {
         return service.findAllBooks(pageable, filter);
     }
 
+    @Operation(summary = "Get amount of books")
+    @GetMapping(Url.Book.AMOUNT)
+    public Long getAmount() {
+        return service.getAmount();
+    }
+
     @Operation(summary = "Create endpoint")
     @PostMapping
     public BookDto create(@RequestBody @Valid BookDto dto) {

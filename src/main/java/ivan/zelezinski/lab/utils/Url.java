@@ -6,6 +6,7 @@ public interface Url {
 
     interface Book {
         String BASE = "books/";
+        String AMOUNT = "amount/";
     }
 
     interface User {

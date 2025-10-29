@@ -10,6 +10,7 @@ import ivan.zelezinski.lab.repository.BookcaseRepository;
 import ivan.zelezinski.lab.repository.UserRepository;
 import ivan.zelezinski.lab.utils.Utils;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class BookcaseServiceImpl implements BookcaseService {
     private final BookcaseRepository bookcaseRepository;
     private final BookcaseDtoMapper bookcaseDtoMapper;
@@ -55,6 +57,7 @@ public class BookcaseServiceImpl implements BookcaseService {
                 bookcase.setUser(user);
             }
         }
+        log.info("Bookcase with name: {} created", bookcase.getName());
         return bookcaseDtoMapper.toDto(bookcaseRepository.save(bookcase));
     }
 
@@ -75,6 +78,7 @@ public class BookcaseServiceImpl implements BookcaseService {
                 bookcase.setUser(user);
             }
         }
+        log.info("Bookcase with name: {} updated", bookcase.getName());
         return bookcaseDtoMapper.toDto(bookcaseRepository.save(bookcase));
     }
 
@@ -82,6 +86,7 @@ public class BookcaseServiceImpl implements BookcaseService {
     @Transactional
     public void delete(UUID uuid) {
         Bookcase bookcase = findByUuidAndGet(uuid);
+        log.info("Bookcase with name: {} deleted", bookcase.getName());
         bookcaseRepository.delete(bookcase);
     }
 

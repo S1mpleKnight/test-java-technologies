@@ -35,12 +35,11 @@ public class CriteriaBookRepositoryImpl implements CriteriaBookRepository {
 
         query.select(root);
 
-        List<Predicate> predicates = new ArrayList<>();
-
         Join<Book, Bookcase> bookcaseJoin = root.join(Book_.BOOKCASE, JoinType.LEFT);
         Join<Bookcase, User> userJoin = bookcaseJoin.join(Bookcase_.USER, JoinType.LEFT);
 
         if (Objects.nonNull(filter)) {
+            List<Predicate> predicates = new ArrayList<>();
             if (Objects.nonNull(filter.getBookIds()) && !CollectionUtils.isEmpty(filter.getBookIds())) {
                 predicates.add(root.get(Book_.UUID).in(filter.getBookIds()));
             }
@@ -77,9 +76,10 @@ public class CriteriaBookRepositoryImpl implements CriteriaBookRepository {
                 predicates.add(criteriaBuilder
                         .greaterThanOrEqualTo(root.get(Book_.UPDATED_DATE), filter.getToUpdateDateTime()));
             }
+
+            query.where(criteriaBuilder.and(predicates.toArray(new Predicate[0])));
         }
 
-        query.where(criteriaBuilder.and(predicates.toArray(new Predicate[0])));
         List<Book> resultList = entityManager.createQuery(query).getResultList();
         return new PageImpl<>(resultList, pageable, resultList.size());
     }

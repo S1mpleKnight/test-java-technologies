@@ -1,8 +1,7 @@
-logs
-sql queries
 security(RBAC + keyloak)
 bean post processor
 internalization
 tests
+complex docker compose to all services start up
 
 swagger - http://localhost:8080/swagger-ui/index.html#/

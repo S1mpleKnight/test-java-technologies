@@ -18,4 +18,6 @@ public interface BookService {
     void delete(UUID uuid);
 
     BookDto findByUuid(UUID uuid);
+
+    Long getAmount();
 }

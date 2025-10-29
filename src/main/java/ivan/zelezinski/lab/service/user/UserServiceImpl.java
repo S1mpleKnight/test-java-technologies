@@ -8,6 +8,7 @@ import ivan.zelezinski.lab.mapper.user.UserDtoMapper;
 import ivan.zelezinski.lab.repository.UserRepository;
 import ivan.zelezinski.lab.utils.Utils;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UserServiceImpl implements UserService{
     private final UserDtoMapper userDtoMapper;
     private final UserRepository userRepository;
@@ -44,6 +46,7 @@ public class UserServiceImpl implements UserService{
         User user = userDtoMapper.toEntity(dto);
         user.setCreatedDate(LocalDateTime.now());
         user.setUpdatedDate(LocalDateTime.now());
+        log.info("User with email: {} created", user.getEmail());
         return userDtoMapper.toDto(userRepository.save(user));
     }
 
@@ -56,6 +59,7 @@ public class UserServiceImpl implements UserService{
         }
         user = userDtoMapper.updateEntity(user, dto);
         user.setUpdatedDate(LocalDateTime.now());
+        log.info("User with email: {} updated", user.getEmail());
         return userDtoMapper.toDto(userRepository.save(user));
     }
 
@@ -63,6 +67,7 @@ public class UserServiceImpl implements UserService{
     @Transactional
     public void delete(UUID uuid) {
         User user = findByUuidAndGet(uuid);
+        log.info("User with email: {} deleted", user.getEmail());
         userRepository.delete(user);
     }
 
